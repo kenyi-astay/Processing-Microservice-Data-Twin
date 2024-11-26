@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service TopographyFileService {
+    rpc UploadFile (stream FileChunk) returns (UploadStatus);
+}
+
+message FileChunk {
+    bytes data = 1;  // The data chunk
+    int32 part = 2;  // Part number (for reassembly)
+    int32 total_parts = 3;  // Total parts of the file
+}
+
+message UploadStatus {
+    bool success = 1;  // Whether the upload was successful
+    string message = 2;  // Additional message
+}
